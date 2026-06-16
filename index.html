@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>heyanatomia.com - IA para Consultorios Médicos</title>
+    <link rel="icon" type="image/webp" href="https://d2xsxph8kpxj0f.cloudfront.net/310519663092177904/AQNgRMbU9NZi3r83xRv8ct/logo-myanatomia-2yzCSbETkiphYh9EL6Aq8W.webp">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a1f2e;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                padding: 0 2rem;
+            }
+        }
+
+        /* NAVEGACIÓN */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            transition: all 0.2s ease;
+            background: transparent;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-logo img {
+            width: 2rem;
+            height: 2rem;
+        }
+
+        .nav-logo span {
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: #1a1f2e;
+        }
+
+        .nav-links {
+            display: none;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .nav-links a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: rgba(26, 31, 46, 0.7);
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        .nav-links a:hover {
+            color: #0f5fd4;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-demo {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .btn-demo {
+                display: inline-flex;
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            color: #1a1f2e;
+        }
+
+        @media (max-width: 767px) {
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        .menu-toggle svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .mobile-menu {
+            display: none;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .mobile-menu.open {
+            display: block;
+        }
+
+        .mobile-menu-content {
+            padding: 1rem 0;
+            space-y: 1rem;
+        }
+
+        .mobile-menu-content a {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: rgba(26, 31, 46, 0.7);
+            text-decoration: none;
+            padding: 0.75rem 0;
+            transition: color 0.15s ease;
+        }
+
+        .mobile-menu-content a:hover {
+            color: #0f5fd4;
+        }
+
+        /* BOTONES */
+        button, .btn {
+            font-family: 'Inter', sans-serif;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-weight: 600;
+            border-radius: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: #0f5fd4;
+            color: white;
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            background-color: rgba(15, 95, 212, 0.9);
+            transform: scale(1.02);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-accent {
+            background-color: #10b981;
+            color: white;
+            padding: 1.75rem 2rem;
+            font-size: 1rem;
+        }
+
+        .btn-accent:hover {
+            background-color: rgba(16, 185, 129, 0.9);
+            transform: scale(1.02);
+        }
+
+        .btn-accent:active {
+            transform: scale(0.98);
+        }
+
+        .btn-lg {
+            padding: 1.75rem 2rem;
+            font-size: 1rem;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding-top: 10rem;
+            padding-bottom: 6rem;
+            background: linear-gradient(to bottom, #ffffff, #f5f7fa);
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .hero {
+                padding-top: 12rem;
+                padding-bottom: 8rem;
+            }
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+        }
+
+        .hero-text h1 {
+            font-size: 2rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #1a1f2e;
+        }
+
+        @media (min-width: 768px) {
+            .hero-text h1 {
+                font-size: 2.25rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-text h1 {
+                font-size: 2.75rem;
+            }
+        }
+
+        .hero-text h1 .highlight {
+            color: #0f5fd4;
+        }
+
+        .hero-text p {
+            font-size: 1rem;
+            color: rgba(26, 31, 46, 0.7);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-text p {
+                font-size: 1.125rem;
+            }
+        }
+
+        .hero-text .benefits {
+            font-size: 0.875rem;
+            color: rgba(26, 31, 46, 0.6);
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        @media (min-width: 768px) {
+            .hero-image {
+                height: 550px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-image {
+                height: 600px;
+            }
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* SECCIÓN EMPATÍA */
+        .empathy-section {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        @media (min-width: 768px) {
+            .empathy-section {
+                padding: 8rem 0;
+            }
+        }
+
+        .empathy-content {
+            max-width: 56rem;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .empathy-content h2 {
+            font-size: 2rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #1a1f2e;
+        }
+
+        @media (min-width: 768px) {
+            .empathy-content h2 {
+                font-size: 2.25rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .empathy-content h2 {
+                font-size: 2.75rem;
+            }
+        }
+
+        .empathy-content p {
+            font-size: 1rem;
+            color: rgba(26, 31, 46, 0.7);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .empathy-content p {
+                font-size: 1.125rem;
+            }
+        }
+
+        .empathy-content .highlight-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #0f5fd4;
+        }
+
+        /* SECCIÓN ANATOMÍA */
+        .anatomy-section {
+            padding: 6rem 0;
+            background: #f5f7fa;
+        }
+
+        @media (min-width: 768px) {
+            .anatomy-section {
+                padding: 8rem 0;
+            }
+        }
+
+        .anatomy-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .anatomy-header h2 {
+            font-size: 2rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #1a1f2e;
+        }
+
+        @media (min-width: 768px) {
+            .anatomy-header h2 {
+                font-size: 2.25rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .anatomy-header h2 {
+                font-size: 2.75rem;
+            }
+        }
+
+        .anatomy-header p {
+            font-size: 1rem;
+            color: rgba(26, 31, 46, 0.7);
+            max-width: 48rem;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        @media (min-width: 768px) {
+            .anatomy-header p {
+                font-size: 1.125rem;
+            }
+        }
+
+        .anatomy-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        @media (min-width: 768px) {
+            .anatomy-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .anatomy-card {
+            background: white;
+            padding: 2rem 2.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            transition: all 0.15s ease;
+        }
+
+        .anatomy-card:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
+            transform: translateY(-4px);
+        }
+
+        .anatomy-card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .anatomy-card-icon {
+            width: 3rem;
+            height: 3rem;
+            background: rgba(15, 95, 212, 0.1);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .anatomy-card-icon svg {
+            width: 2rem;
+            height: 2rem;
+            color: #0f5fd4;
+        }
+
+        .anatomy-card h3 {
+            font-size: 1.5rem;
+            color: #1a1f2e;
+            margin-bottom: 0.75rem;
+        }
+
+        .anatomy-card p {
+            font-size: 1rem;
+            color: rgba(26, 31, 46, 0.7);
+            line-height: 1.8;
+        }
+
+        .anatomy-card-label {
+            font-weight: 600;
+            color: #1a1f2e;
+        }
+
+        .anatomy-image {
+            width: 100%;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .anatomy-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* SECCIÓN CONSULTORIO */
+        .consultorio-section {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        @media (min-width: 768px) {
+            .consultorio-section {
+                padding: 8rem 0;
+            }
+        }
+
+        .consultorio-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .consultorio-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+        }
+
+        .consultorio-image {
+            width: 100%;
+            height: 400px;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
+            order: 2;
+        }
+
+        @media (min-width: 768px) {
+            .consultorio-image {
+                height: 550px;
+                order: 1;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .consultorio-image {
+                height: 600px;
+            }
+        }
+
+        .consultorio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .consultorio-text {
+            order: 1;
+        }
+
+        @media (min-width: 768px) {
+            .consultorio-text {
+                order: 2;
+            }
+        }
+
+        .consultorio-text h2 {
+            font-size: 2rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #1a1f2e;
+        }
+
+        @media (min-width: 768px) {
+            .consultorio-text h2 {
+                font-size: 2.25rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .consultorio-text h2 {
+                font-size: 2.75rem;
+            }
+        }
+
+        .consultorio-text h2 .highlight {
+            color: #0f5fd4;
+        }
+
+        .consultorio-text p {
+            font-size: 1rem;
+            color: rgba(26, 31, 46, 0.7);
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .consultorio-text p {
+                font-size: 1.125rem;
+            }
+        }
+
+        .benefits-list {
+            space-y: 1.5rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefit-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: #10b981;
+            flex-shrink: 0;
+            margin-top: 0.25rem;
+        }
+
+        .benefit-item h3 {
+            font-size: 1.125rem;
+            color: #1a1f2e;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit-item p {
+            font-size: 1rem;
+            color: rgba(26, 31, 46, 0.7);
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        /* SECCIÓN SEGURIDAD */
+        .security-section {
+            padding: 6rem 0;
+            background: #f5f7fa;
+        }
+
+        @media (min-width: 768px) {
+            .security-section {
+                padding: 8rem 0;
+            }
+        }
+
+        .security-content {
+            max-width: 56rem;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .security-content h2 {
+            font-size: 2rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #1a1f2e;
+        }
+
+        @media (min-width: 768px) {
+            .security-content h2 {
+                font-size: 2.25rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .security-content h2 {
+                font-size: 2.75rem;
+            }
+        }
+
+        .security-content p {
+            font-size: 1rem;
+            color: rgba(26, 31, 46, 0.7);
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .security-content p {
+                font-size: 1.125rem;
+            }
+        }
+
+        .security-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .security-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        .security-card {
+            background: white;
+            padding: 2rem 2.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            transition: all 0.15s ease;
+        }
+
+        .security-card:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
+            transform: translateY(-4px);
+        }
+
+        .security-card-emoji {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .security-card h3 {
+            font-size: 1.25rem;
+            color: #1a1f2e;
+            margin-bottom: 1rem;
+        }
+
+        .security-card p {
+            font-size: 1rem;
+            color: rgba(26, 31, 46, 0.7);
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        /* SECCIÓN CTA FINAL */
+        .cta-section {
+            padding: 6rem 0;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .cta-section {
+                padding: 8rem 0;
+            }
+        }
+
+        .cta-background {
+            position: absolute;
+            inset: 0;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .cta-background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cta-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, white, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+            z-index: 1;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 10;
+            max-width: 56rem;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #1a1f2e;
+        }
+
+        @media (min-width: 768px) {
+            .cta-content h2 {
+                font-size: 2.25rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .cta-content h2 {
+                font-size: 2.75rem;
+            }
+        }
+
+        .cta-content p {
+            font-size: 1rem;
+            color: rgba(26, 31, 46, 0.7);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .cta-content p {
+                font-size: 1.125rem;
+            }
+        }
+
+        /* FOOTER */
+        footer {
+            background: #1a1f2e;
+            color: white;
+            padding: 4rem 0 3rem;
+        }
+
+        @media (min-width: 768px) {
+            footer {
+                padding: 5rem 0;
+            }
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+                gap: 3rem;
+            }
+        }
+
+        .footer-column h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.15s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand img {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .footer-brand span {
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        .footer-divider {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 3rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+        }
+
+        /* ANIMACIONES */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .fade-in-delayed {
+            animation: fadeIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) 0.2s both;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVEGACIÓN -->
+    <nav id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="nav-logo">
+                    <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663092177904/AQNgRMbU9NZi3r83xRv8ct/logo-myanatomia-2yzCSbETkiphYh9EL6Aq8W.webp" alt="heyanatomia">
+                    <span>heyanatomia</span>
+                </div>
+                
+                <div class="nav-links">
+                    <a href="#anatomia">La Anatomía del Sistema</a>
+                    <a href="#consultorio">Consultorio Autónomo</a>
+                    <a href="#beneficios">Beneficios</a>
+                </div>
+
+                <div class="nav-actions">
+                    <button class="btn btn-primary btn-demo" onclick="handleWhatsAppClick('Quiero probar la demo de heyanatomia en 60 segundos')">Probar Demo</button>
+                    <button class="menu-toggle" onclick="toggleMobileMenu()">
+                        <svg id="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MENÚ MÓVIL -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="container">
+                <div class="mobile-menu-content">
+                    <a href="#anatomia">La Anatomía del Sistema</a>
+                    <a href="#consultorio">Consultorio Autónomo</a>
+                    <a href="#beneficios">Beneficios</a>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="handleWhatsAppClick('Quiero probar la demo de heyanatomia en 60 segundos'); toggleMobileMenu();">Probar Demo</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text fade-in">
+                    <h1>El primer <span class="highlight">"Sistema Nervioso Digital"</span> diseñado para médicos independientes</h1>
+                    <p>Deja atrás el desorden administrativo y el agotador salto entre múltiples aplicaciones desconectadas. heyanatomia unifica tus expedientes clínicos, tu facturación y tu agenda de forma completamente autónoma mediante inteligencia artificial.</p>
+                    <button class="btn btn-accent btn-lg" onclick="handleWhatsAppClick('Quiero probar la demo de heyanatomia en 60 segundos')">Probar la Demo en WhatsApp en 60 Segundos</button>
+                    <p class="benefits">✓ Sin tarjeta de crédito requerida · ✓ Acceso inmediato · ✓ Demo interactiva</p>
+                </div>
+                <div class="hero-image fade-in-delayed">
+                    <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663092177904/AQNgRMbU9NZi3r83xRv8ct/hero-medical-ai-interface-k6EQVPky77ciRMoqkBj85A.webp" alt="Interfaz de IA Médica">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN EMPATÍA -->
+    <section class="empathy-section">
+        <div class="container">
+            <div class="empathy-content">
+                <h2>Estudiaste para sanar pacientes, no para llenar formularios.</h2>
+                <p>Como médico independiente, tú eres el motor y el factor decisivo para que tu consultorio funcione y prospere día con día. Sin embargo, pasar tus jornadas saltando de una herramienta aislada a otra para revisar pagos, confirmar citas por chat y transcribir notas te drena energía. El desorden operativo en una administración manual genera retrasos de rendimiento y deudas de tiempo.</p>
+                <p class="highlight-text">Es momento de migrar de las automatizaciones aisladas hacia una verdadera orquestación clínica profundamente integrada.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN ANATOMÍA -->
+    <section class="anatomy-section" id="anatomia">
+        <div class="container">
+            <div class="anatomy-header">
+                <h2>Un ecosistema clínico inteligente inspirado en la anatomía humana</h2>
+                <p>Basándonos en la estructura funcional del cuerpo humano, creamos una plataforma integrada donde el software piensa, se fundamenta, actúa y se conecta en perfecta armonía.</p>
+            </div>
+
+            <div class="anatomy-grid">
+                <!-- El Cerebro -->
+                <div class="anatomy-card">
+                    <div class="anatomy-card-header">
+                        <div class="anatomy-card-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6C6.48 6 2 9.58 2 14c0 1.54.36 3.01 1.01 4.32L2 22l5.68-1.01C10.99 21.64 12.46 22 14 22c5.52 0 10-3.58 10-8s-4.48-8-10-8zm0 14c-1.41 0-2.73-.36-3.88-.99l-.28-.15-2.89.51.51-2.89-.15-.28C3.36 16.73 3 15.41 3 14c0-3.86 3.59-7 8-7s8 3.14 8 7-3.59 7-8 7z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>🧠 El Cerebro</h3>
+                        </div>
+                    </div>
+                    <p><span class="anatomy-card-label">Motor de Razonamiento</span> — Nuestro sistema lee, procesa e interpreta datos con una lógica médica avanzada para ayudarte a analizar y estructurar de forma inmediata la información de tus consultas.</p>
+                </div>
+
+                <!-- La Biblioteca -->
+                <div class="anatomy-card">
+                    <div class="anatomy-card-header">
+                        <div class="anatomy-card-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17.25m20-11.002c5.5 0 10 4.745 10 11.002M15 6.253v13m-3-13c5.5 0 10 4.745 10 11.002M9 17.25c0 5.247-4.5 9.752-10 9.752S-1 22.497-1 17.25m20 0c0 5.247 4.5 9.752 10 9.752s10-4.505 10-9.752M9 17.25C9 12.008 13.5 7.5 19 7.5"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>📚 La Biblioteca</h3>
+                        </div>
+                    </div>
+                    <p><span class="anatomy-card-label">Base de Conocimiento (RAG)</span> — El sistema conecta de forma directa el cerebro de la IA con tus archivos de pacientes, notas previas e historiales médicos activos. Todas las respuestas se anclan en la realidad de tus datos clínicos.</p>
+                </div>
+
+                <!-- El Sistema Nervioso -->
+                <div class="anatomy-card">
+                    <div class="anatomy-card-header">
+                        <div class="anatomy-card-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>⚡ El Sistema Nervioso</h3>
+                        </div>
+                    </div>
+                    <p><span class="anatomy-card-label">Conectividad Central (MCP)</span> — Es el cableado maestro que unifica tu agenda, terminales de pago, registros de aseguradoras y expedientes bajo un mismo estándar de comunicación.</p>
+                </div>
+
+                <!-- Las Manos -->
+                <div class="anatomy-card">
+                    <div class="anatomy-card-header">
+                        <div class="anatomy-card-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2.25A3.75 3.75 0 004.5 21h9a3.75 3.75 0 003.75-3.75V9.5m0 0a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2.25m3-6v6m3-6v2.25a3.75 3.75 0 01-3.75 3.75H4.5"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>👋 Las Manos</h3>
+                        </div>
+                    </div>
+                    <p><span class="anatomy-card-label">Agentes Autónomos</span> — Dejamos de ser un simple asistente pasivo para empezar a ejecutar tareas por ti. Nuestros agentes virtuales automatizan flujos completos de extremo a extremo.</p>
+                </div>
+            </div>
+
+            <div class="anatomy-image">
+                <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663092177904/AQNgRMbU9NZi3r83xRv8ct/clinic-automation-flow-DiguNqisgNHoPUbhysdNG4.webp" alt="Flujo de Automatización Clínica">
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CONSULTORIO AUTÓNOMO -->
+    <section class="consultorio-section" id="consultorio">
+        <div class="container">
+            <div class="consultorio-content">
+                <div class="consultorio-image">
+                    <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663092177904/AQNgRMbU9NZi3r83xRv8ct/doctor-consultation-modern-3a6BnyHJ5d2F7dfMKAMfoP.webp" alt="Doctor Moderno">
+                </div>
+
+                <div class="consultorio-text">
+                    <h2>Llevamos la visión de la <span class="highlight">"Empresa Autónoma"</span> a tu práctica médica privada</h2>
+                    <p>Transformamos la gestión de tu negocio médico en un entorno impulsado por la ejecución inteligente.</p>
+
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <svg class="benefit-icon" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div>
+                                <h3>🩺 Finanzas Clínicas Autónomas</h3>
+                                <p>Olvídate de conciliar manualmente los cobros de tus pacientes o las liquidaciones de las aseguradoras mediante hojas de cálculo externas. El sistema ejecuta la administración financiera directo en el núcleo operativo.</p>
+                            </div>
+                        </div>
+
+                        <div class="benefit-item">
+                            <svg class="benefit-icon" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div>
+                                <h3>💬 Espacio de Trabajo Conversacional</h3>
+                                <p>Reduce la fatiga digital gracias a una interfaz donde los conocimientos analíticos de tu práctica y las acciones clínicas del día a día conviven de manera fluida dentro de un entorno conversacional guiado por el contexto.</p>
+                            </div>
+                        </div>
+
+                        <div class="benefit-item">
+                            <svg class="benefit-icon" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div>
+                                <h3>🛡️ Procesos con un Núcleo Limpio</h3>
+                                <p>Construimos una infraestructura libre de procesos desordenados que asegura que los agentes inteligentes operen bajo estrictas reglas de gobernanza, control y datos médicos completamente confiables.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN SEGURIDAD -->
+    <section class="security-section" id="beneficios">
+        <div class="container">
+            <div class="security-content">
+                <h2>Diseñado con el médico en el centro del ecosistema</h2>
+                <p>Entendemos que incluso en un futuro impulsado por sistemas autónomos, los profesionales de la salud siguen siendo el factor decisivo e indispensable para que las organizaciones realmente adopten el cambio.</p>
+
+                <div class="security-grid">
+                    <div class="security-card">
+                        <div class="security-card-emoji">🔒</div>
+                        <h3>Seguridad Médica</h3>
+                        <p>Colocamos fuertes capas de gobernanza de datos para proteger la confidencialidad médica con estándares HIPAA.</p>
+                    </div>
+
+                    <div class="security-card">
+                        <div class="security-card-emoji">🎯</div>
+                        <h3>Sin Complejidad Técnica</h3>
+                        <p>No requiere conocimientos de programación ni configuración de arquitecturas técnicas complejas.</p>
+                    </div>
+
+                    <div class="security-card">
+                        <div class="security-card-emoji">🧠</div>
+                        <h3>Adaptación Inteligente</h3>
+                        <p>La inteligencia artificial se adapta con naturalidad a tu criterio clínico y flujos de trabajo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CTA FINAL -->
+    <section class="cta-section">
+        <div class="cta-background">
+            <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663092177904/AQNgRMbU9NZi3r83xRv8ct/nervous-system-abstract-VXrfkphn7G4wfjnpVCte4M.webp" alt="Sistema Nervioso">
+        </div>
+        <div class="cta-overlay"></div>
+
+        <div class="container">
+            <div class="cta-content">
+                <h2>Es momento de instalar un sistema nervioso central en tu consultorio.</h2>
+                <p>Únete a la era de la gestión clínica autónoma y recupera tus horas libres. Experimenta una demostración en tiempo real de forma interactiva y conversacional.</p>
+                <button class="btn btn-primary btn-lg" onclick="handleWhatsAppClick('Quiero iniciar mi demo autónoma de heyanatomia en WhatsApp')">Iniciar mi Demo Autónoma en WhatsApp</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="footer-brand">
+                        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663092177904/AQNgRMbU9NZi3r83xRv8ct/logo-myanatomia-2yzCSbETkiphYh9EL6Aq8W.webp" alt="heyanatomia">
+                        <span>heyanatomia</span>
+                    </div>
+                    <p>El sistema nervioso digital para tu consultorio médico.</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Producto</h4>
+                    <ul>
+                        <li><a href="#anatomia">Características</a></li>
+                        <li><a href="#consultorio">Precios</a></li>
+                        <li><a href="#beneficios">Demo</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="#">Acerca de</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacidad</a></li>
+                        <li><a href="#">Términos</a></li>
+                        <li><a href="#">HIPAA</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-divider">
+                <p>© 2026 heyanatomia.com. Todos los derechos reservados. Diseñado para médicos independientes.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll effect para navbar
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('open');
+        }
+
+        // Cerrar menú móvil al hacer click en un enlace
+        document.querySelectorAll('.mobile-menu-content a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mobileMenu').classList.remove('open');
+            });
+        });
+
+        // WhatsApp handler
+        function handleWhatsAppClick(message) {
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+        }
+
+        // Smooth scroll para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
